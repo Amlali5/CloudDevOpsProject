@@ -8,18 +8,18 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: web-app  # يجب أن يتطابق مع labels في الـ template
+      app: web-app  
   template:
     metadata:
       labels:
-        app: web-app  # يجب أن يتطابق مع selector
+        app: web-app  
     spec:
       containers:
       - name: web-app
-        image: aml51/web-app  # تأكد من وجود هذه الصورة في Docker Hub
+        image: aml51/web-app  
         imagePullPolicy: Always
         ports:
-        - containerPort: 8081  # تأكد أنه نفس المنفذ الذي يعمل عليه التطبيق
+        - containerPort: 8081  
         resources:
           limits:
             memory: "1Gi"
