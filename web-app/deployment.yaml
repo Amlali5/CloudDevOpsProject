@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-app-deployment
+  labels:
+    app: web-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: web-app  # يجب أن يتطابق مع labels في الـ template
+  template:
+    metadata:
+      labels:
+        app: web-app  # يجب أن يتطابق مع selector
+    spec:
+      containers:
+      - name: web-app
+        image: aml51/web-app  # تأكد من وجود هذه الصورة في Docker Hub
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8081  # تأكد أنه نفس المنفذ الذي يعمل عليه التطبيق
+        resources:
+          limits:
+            memory: "1Gi"
+            cpu: "1"
+
