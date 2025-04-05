@@ -1,0 +1,64 @@
+                      +------------------+
+                      |   Developer      |
+                      |   (Writes Code)  |
+                      +--------+---------+
+                               |
+                               v
+                      +------------------+
+                      |    GitHub Repo   |
+                      +--------+---------+
+                               |
+                               v
+                      +------------------+
+                      |     Jenkins      |
+                      |------------------|
+                      | - Clone Code     |
+                      | - Build JAR      |
+                      | - Run Tests      |
+                      | - Docker Build   |
+                      | - Push to Docker |
+                      | - Trigger ArgoCD |
+                      +--------+---------+
+                               |
+        +----------------------+-----------------------+
+        |                                              |
+        v                                              v
++------------------+                          +------------------+
+|   SonarQube      |                          |   Docker Hub     |
+| (Code Analysis)  |                          | (Container Repo) |
++------------------+                          +--------+---------+
+                                                        |
+                                                        v
+                                            +------------------------+
+                                            |       ArgoCD           |
+                                            | (GitOps Deployment)    |
+                                            +--------+---------------+
+                                                     |
+                                                     v
+                                          +---------------------------+
+                                          |      Kubernetes Cluster   |
+                                          |---------------------------|
+                                          | Namespace: web-app        |
+                                          | - Deployment              |
+                                          | - Service (ClusterIP)     |
+                                          | - Ingress (web-app.local) |
+                                          +--------+------------------+
+                                                   |
+                                                   v
+                                      +-----------------------------+
+                                      |     User Accesses App       |
+                                      |   http://web-app.local      |
+                                      +-----------------------------+
+
+
+Optional Infrastructure Setup:
+
+         +------------------+         +-------------------+
+         |    Terraform     +-------->  AWS (EC2, VPC...) |
+         +------------------+         +-------------------+
+                   |
+                   v
+         +------------------+
+         |     Ansible      |
+         | Install Packages |
+         +------------------+
